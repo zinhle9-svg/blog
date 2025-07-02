@@ -38,6 +38,8 @@ function Home() {
     <>
     <div>
       <h1>Blog Posts</h1>
+      </div>
+      <div id="pics">
       <ul>
         {blogs.map((blog, index) => (
       <>
@@ -49,11 +51,7 @@ function Home() {
         ))} 
         </ul>
     </div>
-    {/* <div>
-      <img src={blogs.image}  
-      alt={blogs.blogname}
-      onClick={() => imageClick} />
-    </div> */}
+ 
     </>
   );
 }
