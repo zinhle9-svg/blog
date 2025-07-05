@@ -36,7 +36,7 @@ function Home() {
   
   return (
     <>
-    <div>
+    <div className="">
       <h1>Blog Posts</h1>
       </div>
       <div id="pics">
