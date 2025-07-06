@@ -1,5 +1,6 @@
 import React from "react";
 
+
 function Create() {
   return (
     <div>
@@ -7,12 +8,18 @@ function Create() {
        {/* user input blog name */}
         <div>
           <label>Blog Name:</label>
-          <input type="text" id="blogName" name="blogName" />
+          <input  type="text" id="blogName" name="blogName" />
         </div>
 {/* user choose category (theres gonna be a dropdown) */}
         <div>
           <label>Category:</label>
-          <input type="text" id="category" name="category" />
+          <select id="category" name="category">
+            <option value="Dev">Technology</option>
+            <option value="Cars">Cars</option>
+            <option value="iphone">iPhone</option>
+            <option value="Fashion">Fashion</option>
+            <option value="food">Food</option>
+          </select>
         </div>
 {/* date when the blog was created */}
         <div>
