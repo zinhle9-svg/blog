@@ -39,7 +39,7 @@ function Home() {
       image: Carblog,
       author: "Dana",
       date: "2025-04-20",
-      category: "Automotive",
+      category: "Cars",
       content: "Reviewing the latest car models."
     },
     {
@@ -47,7 +47,7 @@ function Home() {
       image: iPhoneblog,
       author: "Eve",
       date: "2025-03-01",
-      category: "Technology",
+      category: "iphone",
       content: "Everything about the newest iPhone."
     }
   ];
