@@ -6,9 +6,11 @@ import {
   iPhoneblog,
   Softwareblog
 } from "../assets/images";
+import { useNavigate } from "react-router-dom";
 
-// Simple Home component showing blog cards and a details popup
 function Home() {
+  const navigate = useNavigate();
+
   const blogs = [
     {
       blogName: "Fashion",
@@ -47,49 +49,54 @@ function Home() {
       image: iPhoneblog,
       author: "Eve",
       date: "2025-03-01",
-      category: "iphone",
+      category: "iPhone",
       content: "Everything about the newest iPhone."
     }
   ];
 
   const [selectedBlog, setSelectedBlog] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const imageClick = (blog) => {
+  const imageClick = (blog, index) => {
     setSelectedBlog(blog);
+    setSelectedIndex(index);
+  };
+
+    const deletePost = (index) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+    if (!confirmDelete) return;
+
+    setBlogs((prevBlogs) => prevBlogs.filter((_, i) => i !== index));
+    setSelectedBlog(null);
+    setSelectedIndex(null);
   };
 
   return (
-    <>
-      <div>
-        <h1>Blog Posts</h1>
-      </div>
+    <div>
+      <h1>Blog Posts</h1>
 
-      <div id="pics">
-        <ul style={{ listStyle: "none", padding: 0, display: "flex", gap: "20px", flexWrap: "wrap" }}>
-          {blogs.map((blog, index) => (
-            <li key={index} onClick={() => imageClick(blog)} style={{ cursor: "pointer" }}>
-              <h2>{blog.blogName}</h2>
-              <img
-                src={blog.image}
-                alt={blog.blogName}
-                style={{ width: "200px", height: "auto" }}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul>
+        {blogs.map((blog, index) => (
+          <li key={index} onClick={() => imageClick(blog, index)}>
+            <h2>{blog.blogName}</h2>
+            <img src={blog.image} alt={blog.blogName} width="200" />
+          </li>
+        ))}
+      </ul>
 
       {selectedBlog && (
-        <div >
+        <div>
           <h2>{selectedBlog.blogName}</h2>
           <p><strong>Author:</strong> {selectedBlog.author}</p>
           <p><strong>Date:</strong> {selectedBlog.date}</p>
           <p><strong>Category:</strong> {selectedBlog.category}</p>
           <p><strong>Content:</strong> {selectedBlog.content}</p>
+
           <button onClick={() => setSelectedBlog(null)}>Close</button>
+          <button onClick={() => navigate(`/edit/${selectedIndex}`)}>Edit</button>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
