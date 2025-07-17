@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const navigate = useNavigate();
 
-  const blogs = [
+  const [blogs, setBlogs] = useState ([
     {
       blogName: "Fashion",
       image: Fashionblog,
@@ -52,7 +52,7 @@ function Home() {
       category: "iPhone",
       content: "Everything about the newest iPhone."
     }
-  ];
+  ]);
 
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -82,7 +82,9 @@ function Home() {
             <img src={blog.image} alt={blog.blogName} width="200" />
           </li>
         ))}
+       
       </ul>
+       
 
       {selectedBlog && (
         <div>
@@ -94,6 +96,7 @@ function Home() {
 
           <button onClick={() => setSelectedBlog(null)}>Close</button>
           <button onClick={() => navigate(`/edit/${selectedIndex}`)}>Edit</button>
+       <button onClick={deletePost}>Delete</button>
         </div>
       )}
     </div>
