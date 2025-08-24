@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const navigate = useNavigate();
 
-  const [blogs, setBlogs] = useState ([
+  const [blogs, setBlogs] = useState([
     {
       blogName: "Fashion",
       image: Fashionblog,
@@ -62,7 +62,7 @@ function Home() {
     setSelectedIndex(index);
   };
 
-    const deletePost = (index) => {
+  const deletePost = (index) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this post?");
     if (!confirmDelete) return;
 
@@ -72,33 +72,61 @@ function Home() {
   };
 
   return (
-    <div>
-      <h1>Blog Posts</h1>
+    <div className="flex min-h-screen p-6 bg-gray-100">
+      {/* Blog list */}
+      <div className="w-1/2 pr-6">
+        <h1 className="text-2xl font-bold mb-4">Blog Posts</h1>
+        <ul className="space-y-4">
+          {blogs.map((blog, index) => (
+            <li
+              key={index}
+              onClick={() => imageClick(blog, index)}
+              className="cursor-pointer bg-white shadow rounded-lg p-4 hover:bg-pink-100 transition"
+            >
+              <h2 className="text-lg font-semibold">{blog.blogName}</h2>
+              <img src={blog.image} alt={blog.blogName} className="mt-2 w-48 rounded" />
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      <ul>
-        {blogs.map((blog, index) => (
-          <li key={index} onClick={() => imageClick(blog, index)}>
-            <h2>{blog.blogName}</h2>
-            <img src={blog.image} alt={blog.blogName} width="200" />
-          </li>
-        ))}
-       
-      </ul>
-       
+      {/* Blog details */}
+      <div className="w-1/2 pl-6">
+        {selectedBlog ? (
+          <div className="bg-white shadow rounded-lg p-6 space-y-3">
+            <h2 className="text-xl font-bold">{selectedBlog.blogName}</h2>
+            <p><strong>Author:</strong> {selectedBlog.author}</p>
+            <p><strong>Date:</strong> {selectedBlog.date}</p>
+            <p><strong>Category:</strong> {selectedBlog.category}</p>
+            <p>{selectedBlog.content}</p>
 
-      {selectedBlog && (
-        <div>
-          <h2>{selectedBlog.blogName}</h2>
-          <p><strong>Author:</strong> {selectedBlog.author}</p>
-          <p><strong>Date:</strong> {selectedBlog.date}</p>
-          <p><strong>Category:</strong> {selectedBlog.category}</p>
-          <p><strong>Content:</strong> {selectedBlog.content}</p>
-
-          <button onClick={() => setSelectedBlog(null)}>Close</button>
-          <button onClick={() => navigate(`/edit/${selectedIndex}`)}>Edit</button>
-       <button onClick={deletePost}>Delete</button>
-        </div>
-      )}
+            <div className="flex space-x-3 mt-4">
+              <button
+                onClick={() => setSelectedBlog(null)}
+                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => navigate(`/edit/${selectedIndex}`)}
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => deletePost(selectedIndex)}
+                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-full text-gray-500 italic">
+            Select a blog to view details
+          </div>
+        )}
+      </div>
     </div>
   );
 }
